@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         //put units into an array
         String[] unitsToConvert = {"inches \u2192 mm", "lb mass → kg", "lb force → kN",
-                "lbs/ft\u00b2 → kN/m\u00b2", "Fahrenheit → Celsius", "mm → inches",
+                "lbs/ft\u00b2 → kN/m\u00b2", "Fahrenheit → Celsius",
+                "----------------------------------","mm → inches",
                 "kg → lb mass","kN → lb force", "kN/m² → lbs/ft²", "Celsius → Fahrenheit"};
 
         //made adapter so the array can work with the list
@@ -77,18 +78,22 @@ public class MainActivity extends AppCompatActivity {
                     //call method to calculate the conversion and get units involved as strings
                     String results[] = convertNumber(conversionSelectedPosition, numberToBeConverted);
 
-                    //String message = "Test " + results[0] + " " + results[1] + " " + results[2];
-                    //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    //test to see if spacer was clicked instead of conversion
+                    if(results[1] == ""){
+                        Toast.makeText(MainActivity.this, "Select Conversion", Toast.LENGTH_SHORT).show();
+                    }
+                    //if a conversion was selected, not the spacer
+                    else {
+                        //Find each TextView and send the results to be displayed
+                        TextView convertedResultTextView = (TextView) findViewById(R.id.converted_result_text_view);
+                        convertedResultTextView.setText(results[0]);
 
-                    //Find each TextView and send the results to be displayed
-                    TextView convertedResultTextView = (TextView) findViewById(R.id.converted_result_text_view);
-                    convertedResultTextView.setText(results[0]);
+                        TextView unitFromTextView = (TextView) findViewById(R.id.unit_from_text_view);
+                        unitFromTextView.setText(results[1]);
 
-                    TextView unitFromTextView = (TextView) findViewById(R.id.unit_from_text_view);
-                    unitFromTextView.setText(results[1]);
-
-                    TextView unitToTextView = (TextView) findViewById(R.id.unit_to_text_view);
-                    unitToTextView.setText(results[2]);
+                        TextView unitToTextView = (TextView) findViewById(R.id.unit_to_text_view);
+                        unitToTextView.setText(results[2]);
+                    }
                 }
             }
         });
@@ -134,26 +139,31 @@ public class MainActivity extends AppCompatActivity {
                     unitTwo = "Celsius";
                     break;
                 case "5":
+                    result = 99.99;
+                    unitOne = "";
+                    unitTwo = "";
+                    break;
+                case "6":
                     result = Math.round((numberToBeConverted / 25.4) * 1000) / 1000D;
                     unitOne = "mm";
                     unitTwo = "inches";
                     break;
-                case "6":
+                case "7":
                     result = Math.round((numberToBeConverted / 0.45359237) * 1000) / 1000D;
                     unitOne = "kg";
                     unitTwo = "lb mass";
                     break;
-                case "7":
+                case "8":
                     result = Math.round((numberToBeConverted * 224.8089) * 1000) / 1000D;
                     unitOne = "kN";
                     unitTwo = "lb force";
                     break;
-                case "8":
+                case "9":
                     result = Math.round((numberToBeConverted * 20.8854) * 1000) / 1000D;
                     unitOne = "kN/m²";
                     unitTwo = "lbs/ft²";
                     break;
-                case "9":
+                case "10":
                     result = Math.round((numberToBeConverted * (9.0 / 5.0) + 32) * 1000) / 1000D;
                     unitOne = "Celsius";
                     unitTwo = "Fahrenheit";
